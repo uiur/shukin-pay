@@ -8,7 +8,7 @@ import CreateRoot from './components/CreateRoot'
 declare var web3: any
 
 interface State {
-  desc: string
+  title: string
   to: string
   amount: number
   price?: any
@@ -21,7 +21,7 @@ class RootComponent extends React.Component<{}, State> {
 
     // TODO: check format
     this.state = {
-      desc: params.desc,
+      title: params.title,
       to: params.to,
       amount: params.amount
     }
@@ -37,7 +37,7 @@ class RootComponent extends React.Component<{}, State> {
     const url = new window.URL(window.location.href)
 
     return {
-      desc: url.searchParams.get('desc'),
+      title: url.searchParams.get('title'),
       to: url.searchParams.get('address'),
       amount: parseFloat(url.searchParams.get('amount'))
     }
@@ -64,7 +64,7 @@ class RootComponent extends React.Component<{}, State> {
     if (isPay) {
       return (
         <div>
-          <h1>{ this.state.desc }</h1>
+          <h1>{ this.state.title }</h1>
 
           <p>{ this.state.amount } eth</p>
           <p>rate: { this.state.price && this.state.price.JPY } jpy / eth</p>

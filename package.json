@@ -22,6 +22,7 @@
     "start": "webpack --config webpack.config.js --watch"
   },
   "dependencies": {
+    "query-string": "^5.0.1",
     "react": "^16.2.0",
     "url": "^0.11.0",
     "web3": "^0.20.4",
