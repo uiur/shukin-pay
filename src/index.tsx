@@ -1,76 +1,29 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import * as Web3 from 'web3'
-import * as Frisbee from 'frisbee'
-import { fetchPrice } from './PriceApi'
 import CreateRoot from './components/CreateRoot'
+import PayRoot from './components/PayRoot'
 
 declare var web3: any
 
-interface State {
-  title: string
-  to: string
-  amount: number
-  price?: any
-}
-
-class RootComponent extends React.Component<{}, State> {
-  constructor (props: any) {
-    super(props)
-    const params = this.parseQuery()
-
-    // TODO: check format
-    this.state = {
-      title: params.title,
-      to: params.to,
-      amount: params.amount
-    }
-  }
-
-  componentDidMount () {
-    fetchPrice().then((price: any) => {
-      this.setState({ price })
-    })
-  }
-
+class RootComponent extends React.Component<{}, {}> {
   parseQuery () {
     const url = new window.URL(window.location.href)
 
     return {
       title: url.searchParams.get('title'),
-      to: url.searchParams.get('address'),
+      address: url.searchParams.get('address'),
       amount: parseFloat(url.searchParams.get('amount'))
     }
   }
 
-  submit () {
-    const account = web3.eth.accounts[0]
-    web3.eth.sendTransaction({
-      from: account,
-      to: this.state.to,
-      value: web3.toWei(this.state.amount, 'ether')
-    }, (err: Error, transactionHash: string) => {
-      if (err) return console.error(err)
-
-      console.log(transactionHash)
-    })
-  }
-
   render () {
-    const account = web3.eth.accounts[0]
-
-    const isPay = this.state.to && this.state.amount
+    const params = this.parseQuery()
+    const isPay = params.address && params.amount
 
     if (isPay) {
       return (
-        <div>
-          <h1>{ this.state.title }</h1>
-
-          <p>{ this.state.amount } eth</p>
-          <p>rate: { this.state.price && this.state.price.JPY } jpy / eth</p>
-          <p>{ this.state.to }</p>
-          <button onClick={ this.submit.bind(this) }>Send</button>
-        </div>
+        <PayRoot address={ params.address } amount={ params.amount } title={ params.title } />
       )
     } else {
       return (
