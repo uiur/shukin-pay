@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { roundEthValue } from '../utils'
 import { fetchPrice } from '../PriceApi'
 
 declare var web3: any
@@ -35,11 +36,6 @@ export default class PayRoot extends React.Component<Props, { price?: any }> {
 
   }
 
-  roundEthValue (value: number): number {
-    const million = 1000 * 1000
-    return Math.round(value * million) / million
-  }
-
   addressUrl (address: string): string {
     return `https://etherscan.io/address/${address}`
   }
@@ -54,7 +50,7 @@ export default class PayRoot extends React.Component<Props, { price?: any }> {
         <h1>{ props.title }</h1>
 
         <section>
-          <p><b>{ this.roundEthValue(props.amount) } ETH { this.state.price && `(${Math.round(props.amount * this.state.price.JPY)} 円分)` }</b> の支払いをお願いします🙇 </p>
+          <p><b>{ roundEthValue(props.amount) } ETH { this.state.price && `(${Math.round(props.amount * this.state.price.JPY)} 円分)` }</b> の支払いをお願いします🙇 </p>
           <p>レート: { this.state.price && Math.round(this.state.price.JPY) } 円 / ETH</p>
         </section>
 
