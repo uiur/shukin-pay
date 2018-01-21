@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom'
 import * as queryString from 'query-string'
 import { fetchPrice } from '../PriceApi'
 import { roundEthValue } from '../utils'
+declare var web3 : any
 
 interface State {
   total: number
@@ -19,8 +20,12 @@ export default class CreateRoot extends React.Component<{}, State> {
     this.state = {
       total: 6000,
       count: 4,
-      address: ''
+      address: this.defaultAccount() || ''
     }
+  }
+
+  defaultAccount () {
+    return web3 && web3.currentProvider && web3.eth.accounts[0]
   }
 
   componentDidMount () {

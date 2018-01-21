@@ -1,3 +1,17 @@
 .container {
   max-width: 640px;
+  margin-top: 20px;
+}
+
+.pay-amount-desc {
+  font-size: 32px;
+  margin-bottom: 0;
+}
+
+.pay-address {
+  font-size: 24px;
+}
+
+.pay-success {
+  font-size: 36px;
 }
