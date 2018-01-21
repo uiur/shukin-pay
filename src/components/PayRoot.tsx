@@ -40,19 +40,29 @@ export default class PayRoot extends React.Component<Props, { price?: any }> {
     return Math.round(value * million) / million
   }
 
+  addressUrl (address: string): string {
+    return `https://etherscan.io/address/${address}`
+  }
+
   render () {
     const props = this.props
 
     return (
-      <div>
+      <div className='container'>
         <h1>集金ペイ</h1>
 
         <h1>{ props.title }</h1>
 
-        <p>{ this.roundEthValue(props.amount) } ETH { this.state.price && `(${Math.round(props.amount * this.state.price.JPY)} 円分)` } をお願いします。</p>
-        <p>レート: { this.state.price && Math.round(this.state.price.JPY) } 円 / ETH</p>
-        <p>{ props.address }</p>
-        <button onClick={ this.submit.bind(this) }>Metamaskで支払う</button>
+        <section>
+          <p><b>{ this.roundEthValue(props.amount) } ETH { this.state.price && `(${Math.round(props.amount * this.state.price.JPY)} 円分)` }</b> の支払いをお願いします🙇 </p>
+          <p>レート: { this.state.price && Math.round(this.state.price.JPY) } 円 / ETH</p>
+        </section>
+
+        <section>
+          <a href={this.addressUrl(props.address)} target='_blank'>{ props.address }</a>
+        </section>
+
+        <button className='btn btn-lg btn-primary' onClick={this.submit.bind(this)}>Metamaskで支払う</button>
       </div>
     )
   }

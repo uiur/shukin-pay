@@ -73,37 +73,45 @@ export default class CreateRoot extends React.Component<{}, State> {
 
   render () {
     return (
-      <div>
+      <div className='container'>
         <h1>集金ペイ</h1>
         <p>イベントや勉強会などの割り勘代金をEthereumで簡単に集められます。集金ページを作ってリンクをチャットなどに共有するだけ！</p>
 
         <div>
           <h2>タイトル (任意)</h2>
-          <input type='text' value={ this.state.title || '' } onChange={ this.titleOnChange.bind(this) } />
+          <input
+            className='form-control'
+            type='text'
+            placeholder='イベント名や勉強会名など'
+            value={ this.state.title || '' }
+            onChange={ this.titleOnChange.bind(this) } />
         </div>
 
 
         <div>
-          <h2>合計金額</h2>
-          <input type='number' value={ this.state.total } onChange={ this.totalOnChange.bind(this) } /> 円
+          <h2>合計金額 (日本円)</h2>
+          <input className='form-control' type='number' min={0} value={ this.state.total } onChange={ this.totalOnChange.bind(this) } />
         </div>
-
 
         <div>
           <h2>人数</h2>
-          <input type='number' value={ this.state.count } onChange={ this.countOnChange.bind(this) } /> 人
+          <input className='form-control' type='number' min={0} value={ this.state.count } onChange={ this.countOnChange.bind(this) } />
         </div>
 
-        <h2>1人あたり { this.amount() }円 = { this.amountInEth() } ETH </h2>
-        <p>レート: { this.state.price && this.state.price.JPY } 円 / ETH </p>
-
-        <h2>送金先アドレス</h2>
+        <section>
+          <h2>1人あたり { this.amount() }円 = { this.amountInEth() } ETH </h2>
+          <p>レート: { this.state.price && this.state.price.JPY } 円 / ETH </p>
+        </section>
 
         <div>
-          <input type="text" placeholder='0x1234567890...' value={ this.state.address } onChange={this.addressOnChange.bind(this)} />
+          <h2>送金先アドレス</h2>
+          <input className='form-control' type="text" placeholder='0x1234567890...' value={ this.state.address } onChange={this.addressOnChange.bind(this)} />
         </div>
 
-        <button disabled={!this.inputsAreValid()} onClick={ this.redirectToPayPage.bind(this) }>集金ページを作る</button>
+        <button
+          className='btn btn-primary btn-lg'
+          disabled={!this.inputsAreValid()}
+          onClick={ this.redirectToPayPage.bind(this) }>集金ページを作る</button>
       </div>
     )
   }
