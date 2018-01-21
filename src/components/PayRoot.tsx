@@ -9,7 +9,12 @@ export interface Props {
   address: string
 }
 
-export default class PayRoot extends React.Component<Props, {}> {
+export default class PayRoot extends React.Component<Props, { price?: any }> {
+  constructor (props: Props) {
+    super(props)
+    this.state = {}
+  }
+
   componentDidMount () {
     fetchPrice().then((price: any) => {
       this.setState({ price })
@@ -27,6 +32,12 @@ export default class PayRoot extends React.Component<Props, {}> {
 
       console.log(transactionHash)
     })
+
+  }
+
+  roundEthValue (value: number): number {
+    const million = 1000 * 1000
+    return Math.round(value * million) / million
   }
 
   render () {
@@ -34,14 +45,15 @@ export default class PayRoot extends React.Component<Props, {}> {
 
     return (
       <div>
+        <h1>集金ペイ</h1>
+
         <h1>{ props.title }</h1>
 
-        <p>{ props.amount } eth</p>
-        {/* <p>rate: { this.state.price && this.state.price.JPY } jpy / eth</p> */}
+        <p>{ this.roundEthValue(props.amount) } ETH { this.state.price && `(${Math.round(props.amount * this.state.price.JPY)} 円分)` } をお願いします。</p>
+        <p>レート: { this.state.price && Math.round(this.state.price.JPY) } 円 / ETH</p>
         <p>{ props.address }</p>
-        <button onClick={ this.submit.bind(this) }>Send</button>
+        <button onClick={ this.submit.bind(this) }>Metamaskで支払う</button>
       </div>
     )
   }
-
 }
