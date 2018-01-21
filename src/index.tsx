@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom'
 import * as Web3 from 'web3'
 import CreateRoot from './components/CreateRoot'
 import PayRoot from './components/PayRoot'
+import './style.css'
 
 declare var web3: any
 

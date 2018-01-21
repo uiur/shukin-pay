@@ -87,7 +87,6 @@ export default class CreateRoot extends React.Component<{}, State> {
             onChange={ this.titleOnChange.bind(this) } />
         </div>
 
-
         <div>
           <h2>合計金額 (日本円)</h2>
           <input className='form-control' type='number' min={0} value={ this.state.total } onChange={ this.totalOnChange.bind(this) } />
