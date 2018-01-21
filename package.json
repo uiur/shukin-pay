@@ -1,0 +1,30 @@
+{
+  "name": "shukin-pay",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@types/react": "^16.0.34",
+    "@types/react-dom": "^16.0.3",
+    "awesome-typescript-loader": "^3.4.1",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "frisbee": "^1.6.4",
+    "react-dom": "^16.2.0",
+    "source-map-loader": "^0.2.3",
+    "typescript": "^2.6.2",
+    "webpack": "^3.10.0"
+  },
+  "scripts": {
+    "start": "webpack --config webpack.config.js --watch"
+  },
+  "dependencies": {
+    "react": "^16.2.0",
+    "url": "^0.11.0",
+    "web3": "^0.20.4",
+    "whatwg-fetch": "^2.0.3"
+  }
+}
