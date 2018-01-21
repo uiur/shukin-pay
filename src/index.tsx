@@ -2,16 +2,10 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import * as Web3 from 'web3'
 import * as Frisbee from 'frisbee'
+import { fetchPrice } from './PriceApi'
+import CreateRoot from './components/CreateRoot'
 
 declare var web3: any
-
-const api = new Frisbee({
-  baseURI: 'https://min-api.cryptocompare.com',
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  }
-})
 
 interface State {
   desc: string
@@ -34,8 +28,8 @@ class RootComponent extends React.Component<{}, State> {
   }
 
   componentDidMount () {
-    api.get('/data/price?fsym=ETH&tsyms=ETH,USD,JPY').then((res: any) => {
-      this.setState({ price: res.body })
+    fetchPrice().then((price: any) => {
+      this.setState({ price })
     })
   }
 
@@ -44,7 +38,7 @@ class RootComponent extends React.Component<{}, State> {
 
     return {
       desc: url.searchParams.get('desc'),
-      to: url.searchParams.get('to'),
+      to: url.searchParams.get('address'),
       amount: parseFloat(url.searchParams.get('amount'))
     }
   }
@@ -64,15 +58,25 @@ class RootComponent extends React.Component<{}, State> {
 
   render () {
     const account = web3.eth.accounts[0]
-    return (
-      <div>
-        <p>{ this.state.amount } eth</p>
-        <h1>{ this.state.desc }</h1>
-        <p>{ this.state.to }</p>
-        <p>{ this.state.price && this.state.price.JPY } jpy / eth</p>
-        <button onClick={ this.submit.bind(this) }>Send</button>
-      </div>
-    )
+
+    const isPay = this.state.to && this.state.amount
+
+    if (isPay) {
+      return (
+        <div>
+          <h1>{ this.state.desc }</h1>
+
+          <p>{ this.state.amount } eth</p>
+          <p>rate: { this.state.price && this.state.price.JPY } jpy / eth</p>
+          <p>{ this.state.to }</p>
+          <button onClick={ this.submit.bind(this) }>Send</button>
+        </div>
+      )
+    } else {
+      return (
+        <CreateRoot />
+      )
+    }
   }
 }
 
