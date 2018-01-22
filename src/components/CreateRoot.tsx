@@ -66,7 +66,7 @@ export default class CreateRoot extends React.Component<{}, State> {
       title: this.state.title
     }
 
-    return `/?${queryString.stringify(query)}`
+    return `${window.location.pathname}?${queryString.stringify(query)}`
   }
 
   redirectToPayPage () {
