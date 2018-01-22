@@ -21,7 +21,8 @@
     "webpack": "^3.10.0"
   },
   "scripts": {
-    "start": "webpack --config webpack.config.js --watch"
+    "start": "webpack --config webpack.config.js --watch",
+    "build:prod": "webpack --config webpack.config.js -p"
   },
   "dependencies": {
     "query-string": "^5.0.1",
